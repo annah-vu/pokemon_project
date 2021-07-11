@@ -1,3 +1,4 @@
+#imports
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,13 +8,19 @@ from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-#Acquire
+#Acquire Functions
 
 def get_pokemon():
+    '''
+    this function will retrieve the original pokedex.csv file for use, and return as a dataframe
+    '''
     df = pd.read_csv('pokedex.csv')
     return df
 
 def prepare_pokemon(df):
+    '''
+    prepare_pokemon will drop columns we do not intend to use, and fills in nulls
+    '''
     
     #drop columns I know I won't be using
     df= df.drop(columns=['Unnamed: 0','german_name','japanese_name'])
@@ -21,10 +28,10 @@ def prepare_pokemon(df):
     #fill pokemon's second type with none if they only have a primary type
     df['type_2'].fillna('None', inplace=True)
     
-    #drop rows with pokemons with no abilities
-    #df = df.drop([33, 172,1033])
+    #fill in 1 missing weight, this Pokemon does not have a specified weight so I just scaled it proportionatly. 
     df['weight_kg'].fillna(4750, inplace=True)
     
+    #Pokemon with missing ability_1 values are basically identical to the entry above them. Use forward fill. 
     df['ability_1'].fillna(method='ffill', inplace=True)
     
     #if they don't have a second ability, put none
@@ -33,7 +40,7 @@ def prepare_pokemon(df):
     #for pokemon with no hidden abilities, put none
     df['ability_hidden'].fillna('None', inplace=True)
     
-    #Fill in forward fill for pokemon that have nulls for catch rate
+    #Pokemon with missing catch rates are basically identical to the entry above them. Use forward fill.
     df['catch_rate'].fillna(method='ffill', inplace=True)
     
     #if there is no base friendship among capture, there is no base friendship at all. Fill with 0.
@@ -51,8 +58,10 @@ def prepare_pokemon(df):
     #and no second egg type
     df['egg_type_2'].fillna('None', inplace=True)
     
-    #hmm...I don't want to drop all the genderless pokemon. I don't think gender is going to play a big role so I'll just ruin the   integer column
+    #create is_genderless column for our Pokemon, 0 if False, 1 if True
     df['is_genderless']= (df['percentage_male'].isnull()==True).astype(int)
+    
+    #genderless Pokemon have no value in percentage_male, I'll fill with 200 so it's out of the range 0-100.
     df['percentage_male'].fillna(200, inplace=True)
     
     #no egg cycles 
@@ -65,52 +74,73 @@ def prepare_pokemon(df):
     return df
 
 def ready_for_battle(df):
+    '''
+    ready_for_battle takes in the pokedex.csv and prepares it as in the prepare_pokemon function
+    it also replaces inapprorpiate data in some of our ice pokemon, turns object columns into new classifiables ones ending
+    in ???_num, and sets up a column called simplified_catch_rate which categorizes certain ranges of catch rates into
+    a category between 1 and 5. 1 being the hardest, 5 being the easiest to catch
+    '''
+    #fill in missing values
     df = prepare_pokemon(df)
+    
+    #adjust weird values
     df['against_ice'].replace({125:0.25}, inplace=True)
-#     df = df.drop(columns=['catch_rate','base_friendship','base_experience','egg_type_number','egg_type_1','egg_type_2','percentage_male','egg_cycles'])
-    #df = df[(np.abs(stats.zscore(df['against_ice'])) < 3)]
-    #df.loc[(df['type_1']== "Water") | (df['type_1']== "Ground") | (df['type_1']== "Rock") | (df['type_2']== "Water") | (df['type_2']== "Rock") | (df['type_2']=="Ground")
-       #, "is_weakness"] = 1
-    #df.is_weakness = df.is_weakness.fillna(0)
-    #df['is_weakness']= (df['is_weakness']).astype(int)
-    ####
+    
+    #create abiility_1_num
     ability_list = df.ability_1.value_counts().index.to_list()
     for count, value in enumerate(ability_list):
         df.loc[df['ability_1']==value,'ability_1_num']=count
     
+    #create ability_2_num
     ability_2_list = df.ability_2.value_counts().index.to_list()
     for count, value in enumerate(ability_2_list):
         df.loc[df['ability_2']==value,'ability_2_num']=count
     
+    #create ability_hidden_num
     ability_hidden_list = df.ability_hidden.value_counts().index.to_list()
     for count, value in enumerate(ability_hidden_list):
         df.loc[df['ability_hidden']==value,'ability_hidden_num']=count
     
+    #create status_num
     status_list = df.status.value_counts().index.to_list()
     for count, value in enumerate(status_list):
         df.loc[df['status']==value,'status_num']=count
-        
+    
+    #create primary_num (for their types)
     primary_list = df.type_1.value_counts().index.to_list()
     for count, value in enumerate(primary_list):
         df.loc[df['type_1']==value,'primary_num']=count
-        
+    
+    #create secondary_num (for their second type)
     secondary_list = df.type_2.value_counts().index.to_list()
     for count, value in enumerate(secondary_list):
         df.loc[df['type_2']==value,'secondary_num']=count
 
+    #create growth_num 
     growth_list = df.growth_rate.value_counts().index.to_list()
     for count, value in enumerate(growth_list):
         df.loc[df['growth_rate']==value,'growth_num']=count
 
-        
+    #create simplified_catch_rate column  
     df['simplified_catch_rate'] = 0
     
+    #for pokemon with a catch rate between 0 and 25, put them in category 1 (the most difficult)
     df['simplified_catch_rate'] = np.where(df['catch_rate'].between(0,25), 1, 0)
+    
+    #for pokemon with a catch rate between 30 and 80, put them in category 2 (hard)
     df['simplified_catch_rate'] = np.where(df.catch_rate.between(30,80), 2, df['simplified_catch_rate'])
+    
+    #for pokemon with a catch rate between 90 and 150, put them in category 3 (medium)
     df['simplified_catch_rate'] = np.where(df.catch_rate.between(90,150), 3, df['simplified_catch_rate'])
+    
+    #for pokemon with a catch rate between 155 and 205, put them in category 4 (easy)
     df['simplified_catch_rate'] = np.where(df.catch_rate.between(155,205), 4, df['simplified_catch_rate'])
+    
+    #for pokemon with a catch rate between 220 and 255, put them in category 5 (very easy)
     df['simplified_catch_rate'] = np.where(df.catch_rate.between(220,255), 5, df['simplified_catch_rate'])
-    ####
+    # even though the bins don't capture every numeric value, it captures all of the Pokemon. 
+    
+    #reset index
     df = df.reset_index(drop=True)
     
     return df
@@ -172,13 +202,13 @@ def get_numeric_X_cols(X_train, object_cols):
     return numeric_cols
 
 def pokemon_split(df):
-    #splitting our data
+    '''splitting our data, stratifying simplified catch rates.'''
     train_validate, test = train_test_split(df, test_size=.2, 
                                         random_state=123, 
-                                        stratify=df.catch_rate)
+                                        stratify=df.simplified_catch_rate)
     train, validate = train_test_split(train_validate, test_size=.3, 
                                    random_state=123, 
-                                   stratify=train_validate.catch_rate)
+                                   stratify=train_validate.simplified_catch_rate)
     return train, validate, test
 
 
