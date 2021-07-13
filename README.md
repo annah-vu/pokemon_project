@@ -18,10 +18,10 @@ A.   [Project Overview             ](#a-project-overview)
 B.  [Project Summary               ](#b-project-summary)
 1.   [Goals                        ](#1-goals)
 2.   [Initial Thoughts & Hypothesis](#2-hypothesis)
-3.   [Findings & Next Phase        ](#3-findings--next-steps)
+3.   [Findings & Next Steps        ](#3-findings--next-steps)
 
 C. [Data Context                 ](#c-data-context)
-1.   [About the pokedex.csv        ](#1-about-the-pokedex.csv)
+1.   [About the Pokedex Data        ](#1-about-the-pokedex-data)
 2.   [Data Dictionary              ](#2-data-dictionary)
 
 D.  [Pipeline                     ](#d-pipeline)
@@ -77,7 +77,7 @@ I believe a number of things determine the general catchability of a Pokemon. Pu
 
 With some exploration with how some of the features correlated to each other (plus a failed attempt to find meaningful clusters), and SelectKBest feature engineering, I was able to find that total points was the biggest driver to the difficulty level of catching a Pokemon. Total Points seems to be directly related to stats like attack, defense, speed, and health points. This was a strong factor to determine catchability, but it was not the end-all. There were Pokemon with top-tier total points that actually had a very high catch rate.
 
-The next phase is to further create new features from the original data, and perhaps separate the different catch rates further more. I believe my model would perform better with a larger scale of catch rates. Due to the constraint of time (and maybe my lack of knowledge of Pokemon), I categorized them based on how I felt was appropriate, but to categorize such a wide range of catch rates may have affected my model's ability to accurately predict which subgroup they belonged in. 
+The next phase is to further create new features from the original data, and perhaps separate the different catch rates further more. I believe my model would perform better with a larger scale of catch rates. Due to the constraint of time (and maybe my lack of knowledge of Pokemon), I categorized them based on how I felt was appropriate, but to categorize such a wide range of catch rates may have affected my model's ability to accurately predict which subgroup they belonged in (especially the easier ones). 
 <br>
 
 My decision tree model performed on unseen data with 71.29% accuracy. It did really well at predicting catch rates for those with either a 1 or 2 (the difficult) for their catchability, but with the two easiest subgroups---it had a really hard time distinguishing. I guess we better take this to Professor Oak's lab and look further into those easier Pokemon to see if we should categorize them in the same level of difficulty, or find features that will distinguish them.
@@ -85,7 +85,7 @@ My decision tree model performed on unseen data with 71.29% accuracy. It did rea
 ### C. Data Context
 ---
 
-#### 1. About the Pokedex.csv
+#### 1. About the Pokedex Data
 
 This Pokedex.csv was acquired from https://www.kaggle.com/mariotormo/complete-pokemon-dataset-updated-090420 (at the time, it was the csv that was updated May 2020). It has over a thousand entries of Generation 1-8 Pokemon, complete with their names, stats, breeding, gender, types, what kinds of attacks they are affected by or not affected by, and more! I took some of the columns and enumerated them so that they could be used by the model. None of the the new features I made from object columns were strongly correlated, so I didn't end up using them for this goal. However, I'm sure whenever I can make other predictions, I will put them to use. 
 
