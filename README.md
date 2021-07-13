@@ -1,4 +1,4 @@
-![]('https://github.com/annah-vu/pokemon_project/blob/master/poketitle.png')
+![](https://github.com/annah-vu/pokemon_project/blob/master/poketitle.png)
 
 # Can You Catch Them All?
 A Pokemon Themed Project by an Aspiring Pokemon Trainer: Anna Vu
