@@ -1,4 +1,6 @@
 ![](https://github.com/annah-vu/pokemon_project/blob/master/poketitle.png)
+
+
 *banner generously donated by: Lupe Luna*
 <br>
 
@@ -81,7 +83,7 @@ My goal is to predict categorical catch rates of Pokemon based on some of their 
 
 #### 2. Hypothesis
 
-I believe a number of things determine the general catchability of a Pokemon. Putting level aside, I believe that type, battle statistics, kinds of abilities, and size would determine if a Pokemon would be easier or harder to catch. 
+I believe a number of things determine the general catchability of a Pokemon. Putting level aside, I believe that type, battle statistics(attack, defense, health, speed), kinds of abilities, and size would determine if a Pokemon would be easier or harder to catch. 
 
 #### 3. Findings & Next Steps
 
