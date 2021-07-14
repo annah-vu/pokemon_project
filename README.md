@@ -22,6 +22,8 @@ Ok, let's [start journey](https://nbviewer.jupyter.org/github/annah-vu/pokemon_p
 
 or stay in Pallet town and keep reading.
 
+<br>
+
 ### Table of Contents
 ---
 
