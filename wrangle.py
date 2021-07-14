@@ -1,3 +1,6 @@
+'''
+Welcome to my wrangle.py, your one stop shop for all things acquire and prepare!
+'''
 #imports
 import pandas as pd 
 import numpy as np
@@ -8,7 +11,7 @@ from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-#Acquire Functions
+#### Acquire Functions
 
 def get_pokemon():
     '''
@@ -17,6 +20,7 @@ def get_pokemon():
     df = pd.read_csv('pokedex.csv')
     return df
 
+#### Prepare Functions
 def prepare_pokemon(df):
     '''
     prepare_pokemon will drop columns we do not intend to use, and fills in nulls
@@ -72,6 +76,10 @@ def prepare_pokemon(df):
     df = df.reset_index(drop=True)
     
     return df
+
+
+# note: bins below for simplified catch rates were decided by kmeans clustering 
+
 
 def ready_for_battle(df):
     '''
@@ -140,10 +148,15 @@ def ready_for_battle(df):
     df['simplified_catch_rate'] = np.where(df.catch_rate.between(220,255), 5, df['simplified_catch_rate'])
     # even though the bins don't capture every numeric value, it captures all of the Pokemon. 
     
+    #now we can drop the original catch rates column
+    df = df.drop(columns=['catch_rate'])
+    
     #reset index
     df = df.reset_index(drop=True)
     
     return df
+
+
 
 def train_validate_test(df, target):
     '''
