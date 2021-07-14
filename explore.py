@@ -1,3 +1,8 @@
+'''
+Welcome to the explore.py, your one stop shop for all things visualize and stats testing!
+'''
+
+#imports
 import pandas as pd
 import warnings
 warnings.filterwarnings("ignore")
@@ -9,6 +14,8 @@ from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.feature_selection import SelectKBest, f_regression, RFE
+from scipy.stats import f_oneway
 
 def get_pokemon_heatmap(df):
     '''returns a beautiful heatmap with correlations according to simplified catch_rates'''
@@ -48,6 +55,9 @@ def explore_univariate(df, variable):
     plt.show()
 
 def histplot(df, variable, target):
+    '''
+    takes in a df, variable, and target and creates a histogram with target as the hue
+    '''
     plt.figure(figsize=(12,8))
     sns.histplot(data=df, x=variable, hue=target, multiple='stack')
     plt.show()
@@ -63,9 +73,15 @@ def count_and_histplots(df, variable, target):
     plt.show()
 
 def scatterplot(train, x, y):
-    plt.figure(figsize=(16,8))
+    '''
+    scatterplot takes in a dataframe, x variable, y variable, and makes a scatterplot with 
+    simplified_catch_rate as the hue
+    '''
+    plt.figure(figsize=(10,6))
     sns.scatterplot(x=x,y=y,data=train,hue='simplified_catch_rate', palette='brg_r')
     plt.title(f'{x} and {y}', fontsize = 20)
+    #plt.legend(loc="upper center", bbox_to_anchor=(1, 1), ncol=1) #hm
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), ncol=1)
     plt.show()
 
 def create_cluster(df, X, k):
@@ -118,14 +134,69 @@ def make_cluster(X_train_scaled, X, n, variable_1, variable_2):
     
 def chi2test(df, x, y):
     '''
-    takes in df, and two variables and conducts a chi2 test to determine whether the null hypothesis should be rejected or not,
-    and returns p value.
+    performs a chi2 test for independence by taking in a dataframe, and 2 variables
+    uses alpha of 0.05
     '''
     a = 0.05 #a for alpha 
 
-    observed = pd.crosstab(x, y, margins = True)
+    observed = pd.crosstab(df[x], df[y], margins = True)
     chi2, p, degf, expected = stats.chi2_contingency(observed)
     if p < a:
-        print(f'Reject null hypothesis. There is evidence to suggest they are not independent. p-value is {p}')
+        print(f'Reject null hypothesis. There is evidence to suggest {x} and {y} are not independent.\n p-value is {p}')
     else:
-        print(f"Fail to reject the null hypothesis. There is not sufficient evidence to reject independence of these variables. p-value is {p}")
+        print(f"Fail to reject the null hypothesis. There is not sufficient evidence to reject independence of {x} and {y}.\n p-value is {p}")
+        
+def anova_test(df, x):
+    '''
+    performs an ANOVA test based on inputted dataframe and variable with the 5 simplified catch rates.
+    It returns the p value and whether to reject or fail to reject the null hypothesis that there was independence
+    '''
+    a=0.05
+    catch1 = df[df['simplified_catch_rate']==1][x]
+    catch2 = df[df['simplified_catch_rate']==2][x]
+    catch3 = df[df['simplified_catch_rate']==3][x]
+    catch4 = df[df['simplified_catch_rate']==4][x]
+    catch5 = df[df['simplified_catch_rate']==5][x]
+    f, p = f_oneway(catch1,catch2,catch3,catch4,catch5)
+    print(f'p value is {p} for simplified_catch_rate and {x}')
+    if p>a:
+        print('Aw man! Fail to reject the null hypothesis! No significant difference in means between the catch rate groups.')
+    else:
+        print('Got em! There\'s evidence to suggest at least 2 of these groups have different means for catch rate!')
+        
+        
+def plot_categorical_and_continuous_vars(df, cat_vars, quant_vars):
+    '''takes in a dataframe as input, with a discrete, and continuous variable and returns 
+    and barplot, swarm plot, boxplot'''
+    plt.figure(figsize=(15,7))
+    sns.barplot(data=df, y=quant_vars, x=cat_vars,hue='simplified_catch_rate')
+    plt.legend(loc="upper center", bbox_to_anchor=(1, 1), ncol=1)
+    plt.show()
+    plt.figure(figsize=(15,7))
+    sns.swarmplot(data=df, y=quant_vars, x=cat_vars, hue='simplified_catch_rate')
+    plt.legend(loc="upper center", bbox_to_anchor=(1, 1), ncol=1)
+    plt.show()
+    plt.figure(figsize=(15,7))
+    sns.boxplot(data=df, y=quant_vars, x=cat_vars, hue='simplified_catch_rate')
+    plt.legend(loc="upper center", bbox_to_anchor=(1, 1), ncol=1)
+    
+def selectkbest(X_train_scaled, y_train, n):
+    '''
+    selectkbest takes in X_train scaled, y_train, and a desired number of features and returns 
+    the selected features to be used in modeling
+    '''
+    f_selector = SelectKBest(k=n)
+    f_selector.fit(X_train_scaled, y_train)
+    f_support = f_selector.get_support()
+    f_feature = X_train_scaled.loc[:,f_support].columns.tolist()
+    print(str(len(f_feature)), 'selected features')
+    print(f_feature)
+    return f_feature
+
+def categorical_bar(data, x):
+    '''
+    takes in a dataframe and a variable, and plots a countplot 
+    '''
+    sns.countplot(data=data, x=x)
+    plt.show()
+    return pd.crosstab(index=data[x], columns='count')
