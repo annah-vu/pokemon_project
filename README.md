@@ -18,7 +18,7 @@ If you knew how easy or hard it was to catch a Pokemon, you could take the right
 
 Still interested? **Grab your favorite starter and let's go!** 
 
-[]
+Ok, let's [start journey](https://nbviewer.jupyter.org/github/annah-vu/pokemon_project/blob/master/final_catch_rates.ipynb)
 
 
 ### Table of Contents
