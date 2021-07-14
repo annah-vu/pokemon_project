@@ -204,6 +204,7 @@ The Pokedex.csv reference guide, if you will.
 #### 6. Product Delivery
 ✓ _Plan_ ➜ ✓ _Acquire_ ➜ ✓ _Prepare_ ➜ ✓ _Explore_ ➜ ✓ _Model_ ➜ :white_check_mark: **Deliver**
 - [x] Prepare Jupyter Notebook with thorough walk-through of the data science pipeline
+- [x] Share findings 
 - [x] Address next steps
 
 
