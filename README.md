@@ -18,6 +18,8 @@ If you knew how easy or hard it was to catch a Pokemon, you could take the right
 
 Still interested? **Grab your favorite starter and let's go!** 
 
+[]
+
 
 ### Table of Contents
 ---
