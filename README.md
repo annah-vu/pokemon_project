@@ -1,14 +1,19 @@
 ![](https://github.com/annah-vu/pokemon_project/blob/master/poketitle.png)
-banner generously donated by: Lupe Luna
+*banner generously donated by: Lupe Luna*
 <br>
 
 # Can You Catch Them All?
 A Pokemon Themed Project by an Aspiring Pokemon Trainer: Anna Vu
+<br>
+<br>
 
 Encountered a new Pokemon? Make sure to catch it so you can expand your Pokedex! Though handfuls of Pokemon are *pretty* easy to secure, there's a wide range of difficulty. You won't know their level of difficulty to catch unless you try, but that can get expensive quick. Pokeballs and its variants aren't free. 
+
 <br>
+
 If you knew how easy or hard it was to catch a Pokemon, you could take the right approaches. You don't want to waste time for the easier ones, and you want to come prepared for the harder ones. I am going to use classification machine learning algorithms to see if it can predict, on a scale, of how difficult they will be based on their features. 
 <br>
+
 Still interested? **Grab your favorite starter and let's go!** 
 
 
@@ -64,7 +69,8 @@ These categories are found under the simplified_catch_rate column. This allows m
 - GitHub repository and this README with project overview, goals, findings, conclusion and summary
 - Jupyter Notebook with a complete walkthrough of the data science pipeline, and commented with takeaways
 - Any Python module(s) used to automate processes in the project. 
-
+<br>
+<br>
 
 ### B. Project Summary
 ---
@@ -85,6 +91,9 @@ The next phase is to further create new features from the original data, and per
 <br>
 
 My decision tree model performed on unseen data with 71.29% accuracy. It did really well at predicting catch rates for those with either a 1 or 2 (the difficult) for their catchability, but with the two easiest subgroups---it had a really hard time distinguishing. I guess we better take this to Professor Oak's lab and look further into those easier Pokemon to see if we should categorize them in the same level of difficulty, or find features that will distinguish them.
+
+<br>
+<br>
 
 ### C. Data Context
 ---
@@ -137,6 +146,9 @@ The Pokedex.csv reference guide, if you will.
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  * Target variable
+
+<br>
+<br>
 
 ### D. Pipeline
 ---
@@ -194,19 +206,23 @@ The Pokedex.csv reference guide, if you will.
 - [x] Prepare Jupyter Notebook with thorough walk-through of the data science pipeline
 - [x] Address next steps
 
+<br>
+<br>
+
 ### E. Modules
 ---
 
  - wrangle.py = contains acquire and prepare functions used to retrieve and prepare the Pokedex for use.
- - explore.py = contains functions I used to explore, and run statistical tests
+ - explore.py = contains functions I used to explore, visualize, and run statistical tests.
 
-
+<br>
+<br>
 
 ### F. Project Reproduction
 ---
 
 Should you want to be a Pokemon master too, you can recreate this project with some simple steps. 
- - Download the csv from the Kaggle link here: https://www.kaggle.com/mariotormo/complete-pokemon-dataset-updated-090420
+ - Download the csv from the Kaggle link [here](https://www.kaggle.com/mariotormo/complete-pokemon-dataset-updated-090420)
  - Download helper function files
  - Download final_catch_rates.ipynb notebook
  - Become a champion.
