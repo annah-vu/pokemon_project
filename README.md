@@ -1,13 +1,15 @@
 ![](https://github.com/annah-vu/pokemon_project/blob/master/poketitle.png)
+banner generously donated by: Lupe Luna
+<br>
 
 # Can You Catch Them All?
 A Pokemon Themed Project by an Aspiring Pokemon Trainer: Anna Vu
 
-Encountered a new Pokemon? Make sure to catch it so you can expand your Pokedex! Though handfuls of Pokemon are pretty easy to secure, there's a wide range of difficulty. You won't know their level of difficulty to catch unless you try, but that can get expensive quick. Pokeballs and its variants aren't free. 
+Encountered a new Pokemon? Make sure to catch it so you can expand your Pokedex! Though handfuls of Pokemon are *pretty* easy to secure, there's a wide range of difficulty. You won't know their level of difficulty to catch unless you try, but that can get expensive quick. Pokeballs and its variants aren't free. 
 <br>
 If you knew how easy or hard it was to catch a Pokemon, you could take the right approaches. You don't want to waste time for the easier ones, and you want to come prepared for the harder ones. I am going to use classification machine learning algorithms to see if it can predict, on a scale, of how difficult they will be based on their features. 
 <br>
-Still interested? Grab your favorite starter and let's go! 
+Still interested? **Grab your favorite starter and let's go!** 
 
 
 ### Table of Contents
@@ -89,7 +91,7 @@ My decision tree model performed on unseen data with 71.29% accuracy. It did rea
 
 #### 1. About the Pokedex Data
 
-This Pokedex.csv was acquired from https://www.kaggle.com/mariotormo/complete-pokemon-dataset-updated-090420 (at the time, it was the csv that was updated May 2020). It has over a thousand entries of Generation 1-8 Pokemon, complete with their names, stats, breeding, gender, types, what kinds of attacks they are affected by or not affected by, and more! I took some of the columns and enumerated them so that they could be used by the model. None of the the new features I made from object columns were strongly correlated, so I didn't end up using them for this goal. However, I'm sure whenever I can make other predictions, I will put them to use. 
+This Pokedex.csv was acquired from [Mario Tormo's Complete Pokemon Dataset](https://www.kaggle.com/mariotormo/complete-pokemon-dataset-updated-090420) (at the time, it was the csv that was updated May 2020). It has over a thousand entries of Generation 1-8 Pokemon, complete with their names, stats, breeding, gender, types, what kinds of attacks they are affected by or not affected by, and more! I took some of the columns and enumerated them so that they could be used by the model. None of the the new features I made from object columns were strongly correlated, so I didn't end up using them for this goal. However, I'm sure whenever I can make other predictions, I will put them to use. 
 
 
 #### 2. Data Dictionary
