@@ -20,6 +20,7 @@ Still interested? **Grab your favorite starter and let's go!**
 
 Ok, let's [start journey](https://nbviewer.jupyter.org/github/annah-vu/pokemon_project/blob/master/final_catch_rates.ipynb)
 
+or stay in Pallet town and keep reading.
 
 ### Table of Contents
 ---
