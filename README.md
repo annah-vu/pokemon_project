@@ -165,7 +165,7 @@ The Pokedex.csv reference guide, if you will.
     - Instructions to reproduce
 - [x] Plan stages of project and consider needs versus desires
     - Think about what target to do
-    - Make a Trello Board (https://trello.com/b/pk8AN3Ru/individual-project)
+    - Make a [Trello Board](https://trello.com/b/pk8AN3Ru/individual-project)
     - Refresh on how to carry the tasks out
 
 #### 2. Data Acquisition
@@ -205,6 +205,7 @@ The Pokedex.csv reference guide, if you will.
 ✓ _Plan_ ➜ ✓ _Acquire_ ➜ ✓ _Prepare_ ➜ ✓ _Explore_ ➜ ✓ _Model_ ➜ :white_check_mark: **Deliver**
 - [x] Prepare Jupyter Notebook with thorough walk-through of the data science pipeline
 - [x] Address next steps
+
 
 <br>
 <br>
